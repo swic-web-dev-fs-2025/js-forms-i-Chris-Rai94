@@ -1,7 +1,19 @@
 import "./style.css";
 
+const REQUIRED = ["name", "email", "message"];
 const form = document.querySelector("form");
+const submitBtn = form.querySelector('[type="submit"]');
 const result = document.querySelector("#result");
+
+submitBtn.disabled = true;
+
+REQUIRED.every((field) => form[field].value.trim() !== "");
+form.addEventListener("input", () => {
+  // Does EVERY form input field have a non-empty value?
+  REQUIRED.every((field) => form[field].value.trim() !== "")
+    ? (submitBtn.disabled = false) // If yes, enable button
+    : (submitBtn.disabled = true); // If no, disable button
+});
 
 // Same pattern as 'clicks', but for 'submit' events.
 form.addEventListener("submit", (event) => {
